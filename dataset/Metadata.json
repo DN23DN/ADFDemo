@@ -1,0 +1,19 @@
+{
+	"name": "Metadata",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LinkedService_storagedemodevika",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "metadata",
+				"container": "adfdemo"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

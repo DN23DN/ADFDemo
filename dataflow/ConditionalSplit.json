@@ -1,0 +1,78 @@
+{
+	"name": "ConditionalSplit",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "EmpDataDataset",
+						"type": "DatasetReference"
+					},
+					"name": "Emp"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "OutputDataDataset1",
+						"type": "DatasetReference"
+					},
+					"name": "ITEmpOutput"
+				},
+				{
+					"dataset": {
+						"referenceName": "OutputDataDataset1",
+						"type": "DatasetReference"
+					},
+					"name": "SalesEmpOutput"
+				},
+				{
+					"dataset": {
+						"referenceName": "OutputDataDataset1",
+						"type": "DatasetReference"
+					},
+					"name": "HREmpOutput"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ConditiontoSplit"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          name as string,",
+				"          country as string,",
+				"          department as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Emp",
+				"Emp split(equals(department, '1'),",
+				"     equals(department, '2'),",
+				"     equals(department, '3'),",
+				"     disjoint: true) ~> ConditiontoSplit@(ITEmp, HREmp, SalesEmp)",
+				"ConditiontoSplit@ITEmp sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['ITEmp'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> ITEmpOutput",
+				"ConditiontoSplit@SalesEmp sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['SalesEmp'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> SalesEmpOutput",
+				"ConditiontoSplit@HREmp sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['HREmp'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> HREmpOutput"
+			]
+		}
+	}
+}

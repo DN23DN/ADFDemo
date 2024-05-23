@@ -1,0 +1,9 @@
+{
+	"name": "ADFDemoDevika",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ca2090b6-aebb-4658-a85f-7db51febe712",
+		"tenantId": "17fc498f-1cd3-47c5-a870-27a618ac5d77"
+	}
+}

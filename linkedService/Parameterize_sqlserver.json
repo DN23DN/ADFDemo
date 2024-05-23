@@ -1,0 +1,22 @@
+{
+	"name": "Parameterize_sqlserver",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"dbname": {
+				"type": "string"
+			},
+			"dbpass": {
+				"type": "string"
+			},
+			"uname": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Data Source=mydbserver.windows.db.net;Initial Catalog=@{linkedService().dbname};User ID=@{linkedService().uname};Password=@{linkedService().dbpass}"
+		}
+	}
+}
