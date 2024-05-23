@@ -1,0 +1,19 @@
+{
+	"name": "Teststorage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LinkedService_storagedemodevika",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "ITEmp",
+				"folderPath": "output",
+				"container": "adfdemo"
+			}
+		}
+	}
+}
