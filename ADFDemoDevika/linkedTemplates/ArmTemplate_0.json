@@ -282,6 +282,30 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Teststorage')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LinkedService_storagedemodevika",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Binary",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "ITEmp",
+						"folderPath": "output",
+						"container": "adfdemo"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LinkedService_storagedemodevika')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/inputDataDataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -893,55 +917,6 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/EmpDataDataset')]",
 				"[concat(variables('factoryId'), '/datasets/OutputDataDataset1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ConditionalSplitPipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ConditionalSplit",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "ConditionalSplit",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"Emp": {},
-									"ITEmpOutput": {},
-									"SalesEmpOutput": {},
-									"HREmpOutput": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2024-05-21T06:05:17Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/ConditionalSplit')]"
 			]
 		}
 	]
