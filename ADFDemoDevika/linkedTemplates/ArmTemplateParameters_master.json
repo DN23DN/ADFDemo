@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "ADFDemoDevika"
+		},
+		"LinkedService_storagedemodevika_connectionString": {
+			"value": ""
+		},
+		"Parameterize_sqlserver_connectionString": {
+			"value": "Integrated Security=False;Data Source=mydbserver.windows.db.net;Initial Catalog=@{linkedService().dbname};User ID=@{linkedService().uname};Password=@{linkedService().dbpass}"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
